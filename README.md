@@ -1,6 +1,6 @@
 # Topological Detection of Mutation in Adaptive Cancer Therapy (TDA + PDE)
 ## Overview
-This project introduces a novel computational approach to the early detection of drug resistance (mutation) during **Adaptive Cancer Therapy**. It leverages spatial modeling (PDE) and **Topological Data Analysis (TDA)** to build an automated Early Warning System that monitors the evolutionary stability of the tumor.
+This project introduces a computational approach to the early detection of drug resistance (mutation) during **Adaptive Cancer Therapy**. It leverages spatial modeling (PDE) and **Topological Data Analysis (TDA)** to build an automated Early Warning System that monitors the evolutionary stability of the tumor.
 
 ##  Biological Background: Adaptive Therapy
 Standard oncology often relies on the Maximum Tolerated Dose (MTD) approach, which frequently leads to the rapid selection of chemoresistant cells. Adaptive therapy, pioneered by the Moffitt Cancer Center, uses a different evolutionary strategy: **cyclical drug administration (ON/OFF)**. 
