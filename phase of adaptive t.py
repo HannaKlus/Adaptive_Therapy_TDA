@@ -64,8 +64,8 @@ X_tda = []
 for i in range(len(tumor_weight_history) - tau):
     x_now = tumor_weight_history[i]
     x_delayed = tumor_weight_history[i + tau]
-    X_tda.append([x_now, x_delayed])#Tworzy zbior uporzadkowanych par
-X_tda = np.array(X_tda) #robi ze zbioru macierz (jak excel)
+    X_tda.append([x_now, x_delayed])
+X_tda = np.array(X_tda) 
 
 window_size = 1000
 step_size = 50
