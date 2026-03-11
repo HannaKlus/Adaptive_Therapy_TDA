@@ -24,8 +24,7 @@ The core detection algorithm is implemented in `puls_tda.py`.
 It utilizes an overlapping sliding window approach. As the window scans through the embedded time series, it continuously computes persistent homology diagrams and extracts the maximum persistence of 1D loops ($\max H_1$).
 
 ## Results: The Early Warning Signal
-The resulting output is a clear, actionable signal for clinicians:
 
-![Mutation Detector](h1_persistence.png)
+![Mutation Detector](TDA_vs_Mass.png)
 
-While the adaptive therapy successfully controls the tumor, the topological signal ($H_1$ persistence) remains high and stable. At $t=35$, when a mutation is introduced and resistant cells begin to dominate, the phase cycle breaks. The algorithm instantly detects the destruction of the attractor, dropping the signal to zero. This "cliff" serves as an immediate, automated alarm that the evolutionary stability has collapsed.
+The resulting output provides a clear, actionable signal for clinicians, demonstrating a significant advantage over standard tumor mass monitoring. While the adaptive therapy successfully controls the tumor, the topological signal ($H_1$ persistence, red) remains high, reflecting stable treatment cycles. At $t=35$, when a mutation is introduced, the raw tumor mass (purple) begins to grow. However, this early volume increase is deceptive and could easily be mistaken for a normal cycle peak. In contrast, the topological algorithm instantly detects the destruction of the underlying phase space attractor. The $H_1$ signal drops to zero, serving as an immediate, automated alarm that evolutionary stability has collapsed - detecting the mutation much earlier and more definitively than observing the raw tumor mass alone.
