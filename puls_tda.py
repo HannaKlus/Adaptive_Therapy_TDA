@@ -11,7 +11,7 @@ t_max = 50
 t_steps = np.arange(0, t_max, dt)
 N = 100
 L = 400
-dx = L/N
+dx = L/(N-1)
 x = np.linspace(0, L, N)
 Nt = len(t_steps)
 t_mutation = 35
@@ -56,6 +56,8 @@ for i in range(Nt):
     v_new[v_new < 0.0] = 0.0
     #
     v = v_new
+    v_new[0] = 0
+    v_new[-1] = 0
 
 #TDA - Taken's theorem and Time delayed embedding
 tau = 22
