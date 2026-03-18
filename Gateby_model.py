@@ -20,7 +20,6 @@ Nt = len(t)
 U = np.zeros((Ny, Nx))
 V = np.zeros((Ny, Nx))
 W = np.zeros((Ny, Nx))
-tumor_weight_history = np.zeros(Nt)
 
 #-MODEL PARAMETERS-
 #Diffusion constants
