@@ -11,12 +11,12 @@ Simultaneously, the tumor alters its microenvironment through the Warburg effect
 * **The Challenge:** How can we automatically detect the exact moment the tumor inevitably mutates, breaks the evolutionary cycle, overcomes the healthy tissue via acid invasion, and escapes therapeutic control?
 
 ## Mathematical Model (Gatenby-Gawlinski PDE to Time Series)
-The foundation of the simulation is the dimensionless Gatenby-Gawlinski (1996) reaction-diffusion model (implemented in `GG_2D_Dimensionless_TDA.py`). The system captures the spatial dynamics of three interacting variables on a 2D grid:
+The foundation of the simulation is the dimensionless Gatenby-Gawlinski (1996) reaction-diffusion model (implemented in `Gateby_model.py`). The system captures the spatial dynamics of three interacting variables on a 2D grid:
 1. Healthy tissue density
 2. Tumor cell density
 3. Excess acid concentration
 
-The model utilizes Zero-Flux (Neumann) boundary conditions to simulate a closed *in vitro/in vivo* environment. To apply time-series topology, the spatial dimension is reduced by integrating the 2D tumor density at each time step. This yields a 1D time series of the total tumor mass, which acts as a proxy for clinical biomarkers (e.g., PSA levels in blood).
+The model utilizes Zero-Flux (Neumann) boundary conditions. To apply time-series topology, the spatial dimension is reduced by integrating the 2D tumor density at each time step. This yields a 1D time series of the total tumor mass, which acts as a proxy for clinical biomarkers (e.g., PSA levels in blood).
 
 ## Topological Data Analysis & Takens' Theorem
 Instead of analyzing the raw, often noisy trend of the tumor mass, this project examines the topological structure of the system's spatial dynamics. Using Takens' Theorem (Delay-Coordinate Embedding) with an empirically optimized time delay $\tau = 150$ to fully unfold the attractor, the 1D mass signal is embedded into a phase space.
