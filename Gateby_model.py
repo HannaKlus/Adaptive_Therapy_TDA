@@ -73,6 +73,9 @@ for i in range(Nt):
     V = V + (dv + lap_v) * dt
     W = W + (dw + lap_w * D_w) * dt
     #
+    U = np.clip(U, 0, 1)
+    V = np.clip(V, 0, 1)
+    W = np.clip(W, 0, None) 
     # Neumann Boundary Conditions
     for matrix in (U, V, W):
         matrix[0, :] = matrix[1, :]
