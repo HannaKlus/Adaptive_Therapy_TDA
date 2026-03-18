@@ -1,5 +1,4 @@
-#Acid-Mediated Tumor Invasion Model
-#Phase 2 - PDE Model - 2D
+
 
 #-LIBRARIES-
 import numpy as np
