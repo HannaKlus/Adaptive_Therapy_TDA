@@ -16,7 +16,7 @@ dy = L/(Ny-1)
 x = np.linspace(0, L, Nx)
 y = np.linspace(0, L, Ny)
 Nt = len(t)
-#von Neumann stability condition for 2D dt <= dx^2/4D
+
 #-INITIALIZATION-
 U = np.zeros((Ny, Nx))
 V = np.zeros((Ny, Nx))
@@ -83,7 +83,10 @@ for i in range(Nt):
     V = V + (dv + lap_v) * dt
     W = W + (dw + lap_w * D_w) * dt
     #
-   # U[U < 0.3] = 0.0
+    U = np.clip(U, 0, 1)
+    V = np.clip(V, 0, 1)
+    W = np.clip(W, 0, None) 
+   
     #Neumann Boundary Conditions
     for matrix in (U, V, W):
         matrix[0, :] = matrix[1, :]
