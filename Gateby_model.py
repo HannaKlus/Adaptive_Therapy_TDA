@@ -15,7 +15,7 @@ dy = L/(Ny-1)
 x = np.linspace(0, L, Nx)
 y = np.linspace(0, L, Ny)
 Nt = len(t)
-#von Neumann stability condition for 2D dt <= dx^2/4D
+
 #-INITIALIZATION-
 U = np.zeros((Ny, Nx))
 V = np.zeros((Ny, Nx))
