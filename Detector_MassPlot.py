@@ -42,20 +42,26 @@ U[:, :] = 1.0
 #
 X, Y = np.meshgrid(x, y)
 dist = (X - L/2)**2 + (Y - L/2)**2 #Distence from the center (matrix Nx x Ny)
-R = 10 #initial tumor radius
-V[dist < R**2] = 0.1
+R = 40 #initial tumor radius
+V[dist < R**2] = 0.5
 W[dist < R**2] = 0.005
+
+M0 = np.sum(V) * dx**2 #Initial Mass
+is_treated = True
 
 #-NUMERICAL INTEGRATION (Euler Method)-
 for i in range(Nt):
+    current_mass = np.sum(V) * dx ** 2
     if t[i] > t_mutation:
         med_effect = 0.1
     else:
-        if t[i] % 6 < 3:
-            med_effect = 1.1
-        else:
-            med_effect = 0.0
-    # Current state
+        if is_treated and current_mass <= 0.5 * M0:
+            is_treated = False
+        elif not is_treated and current_mass >= M0:
+            is_treated = True
+        med_effect = 1.1 if is_treated else 0.0
+
+
     #Acid Diffusion
     lap_w = np.zeros((Ny, Nx))
     lap_w[1:-1, 1:-1] = (W[:-2, 1:-1] + W[2:, 1:-1] + W[1:-1, 2:] + W[1:-1, :-2] - 4 * W[1:-1, 1:-1]) / dx**2
@@ -86,8 +92,8 @@ for i in range(Nt):
     #
     U = np.clip(U, 0, 1)
     V = np.clip(V, 0, 1)
-    W = np.clip(W, 0, None) 
-   
+    W = np.clip(W, 0, None)
+
     #Neumann Boundary Conditions
     for matrix in (U, V, W):
         matrix[0, :] = matrix[1, :]
@@ -99,7 +105,7 @@ for i in range(Nt):
 
 
 #TDA - Taken's theorem and Time delayed embedding
-tau = 150
+tau = 250
 X_tda = []
 
 for i in range(len(tumor_weight_history) - tau):
@@ -150,7 +156,6 @@ plt.xlabel('Time [a.u.]')
 plt.ylabel('Mass [a.u.]')
 plt.grid(True, alpha=0.3)
 plt.subplots_adjust(wspace=0.2)
-plt.savefig('Tumor Mass Dynamics.png')
 plt.show()
 
 
