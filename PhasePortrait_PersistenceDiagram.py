@@ -41,19 +41,25 @@ U[:, :] = 1.0
 #
 X, Y = np.meshgrid(x, y)
 dist = (X - L/2)**2 + (Y - L/2)**2 #Distence from the center (matrix Nx x Ny)
-R = 10 #initial tumor radius
-V[dist < R**2] = 0.1
+R = 40 #initial tumor radius
+V[dist < R**2] = 0.5
 W[dist < R**2] = 0.005
+
+M0 = np.sum(V) * dx**2 #Initial Mass
+is_treated = True
 
 #-NUMERICAL INTEGRATION (Euler Method)-
 for i in range(Nt):
+    current_mass = np.sum(V) * dx ** 2
     if t[i] > t_mutation:
         med_effect = 0.1
     else:
-        if t[i] % 6 < 3:
-            med_effect = 1.1
-        else:
-            med_effect = 0.0
+        if is_treated and current_mass <= 0.5 * M0:
+            is_treated = False
+        elif not is_treated and current_mass >= M0:
+            is_treated = True
+        med_effect = 1.1 if is_treated else 0.0
+
     # Current state
     #Acid Diffusion
     lap_w = np.zeros((Ny, Nx))
@@ -85,9 +91,8 @@ for i in range(Nt):
     #
     U = np.clip(U, 0, 1)
     V = np.clip(V, 0, 1)
-    W = np.clip(W, 0, None) 
-   
-    #Neumann Boundary Conditions
+    W = np.clip(W, 0, None)
+#Neumann Boundary Conditions
     for matrix in (U, V, W):
         matrix[0, :] = matrix[1, :]
         matrix[-1, :] = matrix[-2, :]
@@ -97,7 +102,7 @@ for i in range(Nt):
     tumor_weight_history[i] = np.sum(V) * dx**2
 
 #TDA - Taken's theorem and Time delayed embedding
-tau = 150
+tau = 250
 X_tda = []
 
 for i in range(len(tumor_weight_history) - tau):
@@ -116,8 +121,8 @@ plt.title('1. Phase Portrait')
 plt.xlabel('Mass (t)')
 plt.ylabel(f'Mass (t + {tau})')
 plt.grid(True, alpha=0.3)
-plt.xlim(-10,650)
-plt.ylim(-10,650)
+#plt.xlim(-10,650)
+#plt.ylim(-10,650)
 
 plt.scatter(X_tda[0,0], X_tda[0,1], color='green', label='Start (Benign)')
 plt.scatter(X_tda[-1,0], X_tda[-1,1], color='red', label='End (Invasive)')
@@ -129,10 +134,13 @@ diagrams = result['dgms']
 
 plt.subplot(1, 2, 2)
 plot_diagrams(diagrams, show=False)
-plt.title('2. Topological print (Persistence Diagram)')
 plt.tight_layout()
-plt.savefig('Phase Portrait persistence diagram.png')
 plt.show()
+
+
+
+
+
 
 
 
