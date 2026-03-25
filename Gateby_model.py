@@ -37,8 +37,8 @@ U[:, :] = 1.0
 #
 X, Y = np.meshgrid(x, y)
 dist = (X - L/2)**2 + (Y - L/2)**2 #Distence from the center (matrix Nx x Ny)
-R = 10 #initial tumor radius
-V[dist < R**2] = 0.1
+R = 40 #initial tumor radius
+V[dist < R**2] = 0.5
 W[dist < R**2] = 0.005
 
 #-NUMERICAL INTEGRATION (Euler Method)-
