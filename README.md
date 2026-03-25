@@ -21,7 +21,7 @@ The model utilizes Zero-Flux (Neumann) boundary conditions. To apply time-series
 ## Topological Data Analysis & Takens' Theorem
 Instead of analyzing the raw, often noisy trend of the tumor mass, this project examines the topological structure of the system's spatial dynamics. Using Takens' Theorem (Delay-Coordinate Embedding) with an empirically optimized time delay $\tau = 150$ to fully unfold the attractor, the 1D mass signal is embedded into a phase space.
 
-![Phase Portrait](phase_portrait.png)
+![Phase Portrait](Phase_portrait_persistence.png)
 
 Successful treatment cycles manifest as stable, recurring loops (attractors) in this phase space. To quantify the existence and lifespan of these loops, the model uses **Persistent Homology** (specifically the $H_1$ feature, via the `ripser` library).
 
@@ -31,6 +31,6 @@ The core detection algorithm utilizes an overlapping sliding window approach. As
 ## Results: The Early Warning Signal
 The resulting output provides a clear, actionable signal for clinicians, demonstrating a significant advantage over standard tumor mass monitoring. While the adaptive therapy successfully controls the tumor, the topological signal ($H_1$ persistence, red) remains high and forms distinct "steps," reflecting stable, spatially expanding treatment cycles.
 
-![Mutation Detector](tumor_mass_dynamics.png)
+![Mutation Detector](Tumor_Mass_Dynamics.png)
 
 At $t=35$, when a mutation is introduced, the raw tumor mass (purple) begins to grow. However, this early volume increase is deceptive and could easily be mistaken for a normal cycle peak. In contrast, the topological algorithm instantly detects the destruction of the underlying phase space attractor. The $H_1$ signal definitively drops to zero, serving as an immediate, automated alarm that evolutionary stability has collapsed-detecting the mutation much earlier and more reliably than observing the raw tumor mass alone.
