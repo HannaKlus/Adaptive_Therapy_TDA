@@ -19,7 +19,7 @@ The foundation of the simulation is the dimensionless Gatenby-Gawlinski (1996) r
 The model utilizes Zero-Flux (Neumann) boundary conditions. To apply time-series topology, the spatial dimension is reduced by integrating the 2D tumor density at each time step. This yields a 1D time series of the total tumor mass, which acts as a proxy for clinical biomarkers (e.g., PSA levels in blood).
 
 ## Topological Data Analysis & Takens' Theorem
-Instead of analyzing the raw, often noisy trend of the tumor mass, this project examines the topological structure of the system's spatial dynamics. Using Takens' Theorem (Delay-Coordinate Embedding) with an empirically optimized time delay $\tau = 150$ to fully unfold the attractor, the 1D mass signal is embedded into a phase space.
+Instead of analyzing the raw, often noisy trend of the tumor mass, this project examines the topological structure of the system's spatial dynamics. Using Takens' Theorem (Delay-Coordinate Embedding) with an empirically optimized time delay $\tau = 250$ to fully unfold the attractor, the 1D mass signal is embedded into a phase space.
 
 ![Phase Portrait](Phase_persistence.png)
 
